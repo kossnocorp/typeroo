@@ -1,0 +1,25 @@
+{
+  "name": "typeroo",
+  "version": "0.1.0",
+  "description": "🦘 Advanced TypeScript types collection",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf lib && tsc && cp package.json lib && cp README.md lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kossnocorp/typeroo.git"
+  },
+  "keywords": [
+    "TypeScript"
+  ],
+  "author": "Sasha Koss <koss@nocorp.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kossnocorp/typeroo/issues"
+  },
+  "homepage": "https://github.com/kossnocorp/typeroo#readme",
+  "devDependencies": {
+    "typescript": "^4.3.2"
+  }
+}
