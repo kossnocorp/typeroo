@@ -1,6 +1,6 @@
+import assert from "assert";
 import { parse, ParsedJSON, StringifiedJSON, stringify } from ".";
 import { assertType, IsEqual } from "../assert";
-import assert from "assert";
 
 describe("JSON module", () => {
   describe("ParsedJSON", () => {
@@ -69,24 +69,9 @@ describe("JSON module", () => {
     });
 
     describe("numbers", () => {
-      it("adds null to numbers", () => {
+      it("preserves numbers", () => {
         type ParsedType = ParsedJSON<number>;
-        assertType<IsEqual<ParsedType, number | null>>(true);
-      });
-
-      it("adds null to number fields", () => {
-        interface Data {
-          count: number;
-        }
-        type ParsedType = ParsedJSON<Data>;
-        assertType<
-          IsEqual<
-            ParsedType,
-            {
-              count: number | null;
-            }
-          >
-        >(true);
+        assertType<IsEqual<ParsedType, number>>(true);
       });
 
       it("converts number created with constructors", () => {
@@ -94,19 +79,35 @@ describe("JSON module", () => {
           count: Number;
         }
         type ParsedType = ParsedJSON<Data>;
-        assertType<
-          IsEqual<
-            ParsedType,
-            {
-              count: number | null;
-            }
-          >
-        >(true);
+        assertType<IsEqual<ParsedType, { count: number }>>(true);
+      });
+
+      describe("when StrictNumber is true", () => {
+        it("adds null to numbers", () => {
+          type ParsedType = ParsedJSON<number, false, true>;
+          assertType<IsEqual<ParsedType, number | null>>(true);
+        });
+
+        it("adds null to number fields", () => {
+          interface Data {
+            count: number;
+          }
+          type ParsedType = ParsedJSON<Data, false, true>;
+          assertType<IsEqual<ParsedType, { count: number | null }>>(true);
+        });
+
+        it("converts number created with constructors", () => {
+          interface Data {
+            count: Number;
+          }
+          type ParsedType = ParsedJSON<Data, false, true>;
+          assertType<IsEqual<ParsedType, { count: number | null }>>(true);
+        });
       });
     });
 
     describe("undefineds, functions and symbols", () => {
-      it("omits such undefined, function and symbol fields", () => {
+      it("omits function and symbol fields", () => {
         interface Data {
           uid: string;
           symbol: Symbol;
@@ -119,9 +120,30 @@ describe("JSON module", () => {
             ParsedType,
             {
               uid: string;
+              undefined: undefined;
             }
           >
         >(true);
+      });
+
+      describe("when StrictUndefined is true", () => {
+        it("omits undefined, function and symbol fields", () => {
+          interface Data {
+            uid: string;
+            symbol: Symbol;
+            function: Function;
+            undefined: undefined;
+          }
+          type ParsedType = ParsedJSON<Data, true>;
+          assertType<
+            IsEqual<
+              ParsedType,
+              {
+                uid: string;
+              }
+            >
+          >(true);
+        });
       });
     });
 
@@ -176,18 +198,6 @@ describe("JSON module", () => {
         assertType<IsEqual<ParsedType, Array<boolean | string>>>(true);
       });
 
-      it("adds null to number items", () => {
-        type ParsedType = ParsedJSON<Array<boolean | number>>;
-        assertType<IsEqual<ParsedType, Array<boolean | number | null>>>(true);
-      });
-
-      it("replaces undefineds, functions and symbols with null", () => {
-        type ParsedType = ParsedJSON<
-          Array<boolean | undefined | Function | Symbol>
-        >;
-        assertType<IsEqual<ParsedType, Array<boolean | null>>>(true);
-      });
-
       it("process objects items", () => {
         interface User {
           name: string;
@@ -206,6 +216,45 @@ describe("JSON module", () => {
             >
           >
         >(true);
+      });
+
+      describe("with numbers", () => {
+        it("preserves number items", () => {
+          type ParsedTypeStrictNumber = ParsedJSON<Array<boolean | number>>;
+          assertType<IsEqual<ParsedTypeStrictNumber, Array<boolean | number>>>(
+            true
+          );
+        });
+
+        it("adds null to number items if StrictNumber is true", () => {
+          type ParsedTypeStrictNumber = ParsedJSON<
+            Array<boolean | number>,
+            false,
+            true
+          >;
+          assertType<
+            IsEqual<ParsedTypeStrictNumber, Array<boolean | number | null>>
+          >(true);
+        });
+      });
+
+      describe("with undefineds, functions and symbols", () => {
+        it("replaces functions and symbols with null", () => {
+          type ParsedType = ParsedJSON<
+            Array<boolean | undefined | Function | Symbol>
+          >;
+          assertType<IsEqual<ParsedType, Array<boolean | undefined | null>>>(
+            true
+          );
+        });
+
+        it("replaces undefineds, functions and symbols with null if StrictUndefined is true", () => {
+          type ParsedType = ParsedJSON<
+            Array<boolean | undefined | Function | Symbol>,
+            true
+          >;
+          assertType<IsEqual<ParsedType, Array<boolean | null>>>(true);
+        });
       });
     });
 
@@ -234,8 +283,8 @@ describe("JSON module", () => {
             ParsedType,
             {
               react: {
-                width: number | null;
-                height: number | null;
+                width: number;
+                height: number;
               };
             }
           >

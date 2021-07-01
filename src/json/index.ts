@@ -2,7 +2,15 @@ import { OmitKeys } from "../object";
 
 export interface StringifiedJSON<_Type> extends String {}
 
-export type ParsedJSON<Type> = Type extends undefined | Function | Symbol
+export type ParsedJSON<
+  Type,
+  StrictUndefined = false,
+  StrictNumber = false
+> = Type extends undefined
+  ? StrictUndefined extends true
+    ? null
+    : undefined
+  : Type extends Function | Symbol
   ? null
   : Type extends { toJSON: () => string }
   ? string
@@ -13,16 +21,21 @@ export type ParsedJSON<Type> = Type extends undefined | Function | Symbol
   : Type extends Boolean
   ? boolean
   : Type extends number | Number
-  ? number | null
+  ? StrictNumber extends true
+    ? number | null
+    : number
   : Type extends Array<infer ItemType>
-  ? Array<ParsedJSON<ItemType>>
+  ? Array<ParsedJSON<ItemType, StrictUndefined, StrictNumber>>
   : Type extends { [Symbol.toStringTag]: string }
   ? {}
   : Type extends {}
   ? {
-      [Key in OmitKeys<Type, undefined | Function | Symbol>]: ParsedJSON<
-        Type[Key]
-      >;
+      [Key in OmitKeys<
+        Type,
+        StrictUndefined extends true
+          ? undefined | Function | Symbol
+          : Function | Symbol
+      >]: ParsedJSON<Type[Key], StrictUndefined, StrictNumber>;
     }
   : Type;
 
