@@ -258,6 +258,174 @@ describe("JSON module", () => {
       });
     });
 
+    describe("tuples", () => {
+      it("preserves tuple with 1 element", () => {
+        type ParsedType = ParsedJSON<readonly [string]>;
+        assertType<IsEqual<ParsedType, readonly [string]>>(true);
+      });
+
+      it("preserves tuple with 2 elements", () => {
+        type ParsedType = ParsedJSON<readonly [boolean, string]>;
+        assertType<IsEqual<ParsedType, readonly [boolean, string]>>(true);
+      });
+
+      it("preserves tuple with 3 elements", () => {
+        type ParsedType = ParsedJSON<readonly [boolean, string, number]>;
+        assertType<IsEqual<ParsedType, readonly [boolean, string, number]>>(
+          true
+        );
+      });
+
+      it("preserves tuple with 4 elements", () => {
+        type ParsedType = ParsedJSON<
+          readonly [boolean, string, number, undefined]
+        >;
+        assertType<
+          IsEqual<ParsedType, readonly [boolean, string, number, undefined]>
+        >(true);
+      });
+
+      it("preserves tuple with 5 elements", () => {
+        type ParsedType = ParsedJSON<
+          readonly [boolean, string, number, undefined, number]
+        >;
+        assertType<
+          IsEqual<
+            ParsedType,
+            readonly [boolean, string, number, undefined, number]
+          >
+        >(true);
+      });
+
+      it("preserves tuple with 6 elements", () => {
+        type ParsedType = ParsedJSON<
+          readonly [boolean, string, number, undefined, number, string]
+        >;
+        assertType<
+          IsEqual<
+            ParsedType,
+            readonly [boolean, string, number, undefined, number, string]
+          >
+        >(true);
+      });
+
+      it("preserves tuple with 7 elements", () => {
+        type ParsedType = ParsedJSON<
+          readonly [boolean, string, number, undefined, number, string, boolean]
+        >;
+        assertType<
+          IsEqual<
+            ParsedType,
+            readonly [
+              boolean,
+              string,
+              number,
+              undefined,
+              number,
+              string,
+              boolean
+            ]
+          >
+        >(true);
+      });
+
+      it("preserves tuple with 8 elements", () => {
+        type ParsedType = ParsedJSON<
+          readonly [
+            boolean,
+            string,
+            number,
+            undefined,
+            number,
+            string,
+            boolean,
+            string
+          ]
+        >;
+        assertType<
+          IsEqual<
+            ParsedType,
+            readonly [
+              boolean,
+              string,
+              number,
+              undefined,
+              number,
+              string,
+              boolean,
+              string
+            ]
+          >
+        >(true);
+      });
+
+      it("preserves tuple with 9 elements", () => {
+        type ParsedType = ParsedJSON<
+          readonly [
+            boolean,
+            string,
+            number,
+            undefined,
+            number,
+            string,
+            boolean,
+            string,
+            number
+          ]
+        >;
+        assertType<
+          IsEqual<
+            ParsedType,
+            readonly [
+              boolean,
+              string,
+              number,
+              undefined,
+              number,
+              string,
+              boolean,
+              string,
+              number
+            ]
+          >
+        >(true);
+      });
+
+      it("preserves tuple with 10 elements", () => {
+        type ParsedType = ParsedJSON<
+          readonly [
+            boolean,
+            string,
+            number,
+            undefined,
+            number,
+            string,
+            boolean,
+            string,
+            number,
+            undefined
+          ]
+        >;
+        assertType<
+          IsEqual<
+            ParsedType,
+            readonly [
+              boolean,
+              string,
+              number,
+              undefined,
+              number,
+              string,
+              boolean,
+              string,
+              number,
+              undefined
+            ]
+          >
+        >(true);
+      });
+    });
+
     describe("classes", () => {
       it("simplifies class instances", () => {
         class Rectangle {
