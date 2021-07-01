@@ -1,3 +1,5 @@
 # 🦘 Advanced TypeScript types collection
 
-Work in progress
+Typeroo is a collection of advanced TypeScript types.
+
+## Installation

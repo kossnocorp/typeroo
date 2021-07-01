@@ -1,8 +1,7 @@
 {
   "name": "typeroo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "🦘 Advanced TypeScript types collection",
-  "main": "index.js",
   "scripts": {
     "build": "rm -rf lib && tsc && cp package.json lib && cp README.md lib"
   },
@@ -20,6 +19,8 @@
   },
   "homepage": "https://github.com/kossnocorp/typeroo#readme",
   "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "jest": "^27.0.6",
     "typescript": "^4.3.2"
   }
 }
