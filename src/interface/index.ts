@@ -427,3 +427,7 @@ type InterfaceUnion10<A, B, C, D, E, F, G, H, I, J> =
 type UndefinedDifference<BaseType extends {}, ApplyingType extends {}> = {
   [Key in Exclude<keyof ApplyingType, keyof BaseType>]?: undefined;
 };
+
+export type WholeOrPartial<Type> = Type | { [Key in keyof Type]?: Type[Key] };
+
+export type WholeOrEmpty<Type> = Type | { [Key in keyof Type]?: undefined };
