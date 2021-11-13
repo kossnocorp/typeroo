@@ -1,6 +1,7 @@
 import { OmitKeys } from "../object";
+import { OpaqueString } from "../string";
 
-export interface StringifiedJSON<_Type> extends String {}
+export type StringifiedJSON<Type> = OpaqueString<Type>;
 
 export type ParsedJSON<
   Type,
