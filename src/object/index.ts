@@ -7,5 +7,5 @@ export type OmitKeys<Type, ValueType> = {
 }[keyof Type];
 
 export type NullableKeys<Type, Keys extends keyof Type> = Omit<Type, Keys> & {
-  [key in Keys]: Type[Keys] | null;
+  [Key in Keys]: Type[Key] | null;
 };
