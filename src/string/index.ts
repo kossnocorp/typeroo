@@ -1,1 +1,1 @@
-export interface OpaqueString<_Type> extends String {}
+export type OpaqueString<Type> = string & { __dontUseWillBeUndefined__: Type };
