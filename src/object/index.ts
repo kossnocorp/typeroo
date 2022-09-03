@@ -13,3 +13,7 @@ export type Nullable<Type> = {
 export type NullableKeys<Type, Keys extends keyof Type> = Omit<Type, Keys> & {
   [Key in Keys]: Type[Key] | null;
 };
+
+export type PartialKeys<Type, Keys extends keyof Type> = Omit<Type, Keys> & {
+  [Key in Keys]?: Type[Key];
+};
