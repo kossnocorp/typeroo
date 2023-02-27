@@ -424,7 +424,7 @@ type InterfaceUnion10<A, B, C, D, E, F, G, H, I, J> =
       UndefinedDifference<J, H> &
       UndefinedDifference<J, I>);
 
-type UndefinedDifference<BaseType extends {}, ApplyingType extends {}> = {
+type UndefinedDifference<BaseType, ApplyingType> = {
   [Key in Exclude<keyof ApplyingType, keyof BaseType>]?: undefined;
 };
 

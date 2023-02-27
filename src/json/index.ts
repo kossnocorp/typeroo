@@ -1,5 +1,5 @@
-import { OmitKeys } from "../object";
-import { OpaqueString } from "../string";
+import type { OmitKeys } from "../object";
+import type { OpaqueString } from "../string";
 
 export type StringifiedJSON<Type> = OpaqueString<Type>;
 

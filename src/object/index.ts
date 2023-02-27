@@ -1,3 +1,5 @@
+export type ObjectType = object & { length?: never }
+
 export type PickKeys<Type, ValueType> = {
   [Key in keyof Type]-?: Type[Key] extends ValueType ? Key : never;
 }[keyof Type];
