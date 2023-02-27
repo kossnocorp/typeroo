@@ -1,1 +1,3 @@
-export type OpaqueString<Type> = string & { __dontUseWillBeUndefined__: Type };
+declare const opaqueStringBrand: unique symbol;
+
+export type OpaqueString<Type> = string & { [opaqueStringBrand]: Type };

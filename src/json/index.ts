@@ -184,7 +184,7 @@ export function stringify<Type>(
 ): Type extends undefined | Function | Symbol
   ? undefined
   : StringifiedJSON<Type> {
-  // @ts-ignore JSON.stringify actually returns undefined but TypeScript doesn't consider that
+  // @ts-ignore JSON.stringify actually returns undefined but TypeScript doesn't know that
   return JSON.stringify(object);
 }
 
