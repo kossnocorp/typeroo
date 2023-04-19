@@ -1,5 +1,5 @@
 import assert from "assert";
-import { parse, ParsedJSON, StringifiedJSON, stringify } from ".";
+import { parseJSON, ParsedJSON, StringifiedJSON, stringifyJSON } from ".";
 import { assertType, IsEqual } from "../assert";
 
 describe("JSON module", () => {
@@ -500,26 +500,26 @@ describe("JSON module", () => {
 
   describe("stringify", () => {
     it("stringifies an object to JSON", () => {
-      const json = stringify(abc);
+      const json = stringifyJSON(abc);
       assertType<IsEqual<StringifiedJSON<Abc>, typeof json>>(true);
       assert.deepStrictEqual(json, '{"a":1,"b":2}');
     });
 
     describe("undefineds, functions and symbols", () => {
       it("returns undefined if the argument is undefined", () => {
-        const result = stringify(undefined);
+        const result = stringifyJSON(undefined);
         assertType<IsEqual<undefined, typeof result>>(true);
         assert(result === undefined);
       });
 
       it("returns undefined if the argument is a function", () => {
-        const result = stringify(() => {});
+        const result = stringifyJSON(() => {});
         assertType<IsEqual<undefined, typeof result>>(true);
         assert(result === undefined);
       });
 
       it("returns undefined if the argument is a symbol", () => {
-        const result = stringify(Symbol("nope"));
+        const result = stringifyJSON(Symbol("nope"));
         assertType<IsEqual<undefined, typeof result>>(true);
         assert(result === undefined);
       });
@@ -528,7 +528,7 @@ describe("JSON module", () => {
 
   describe("parse", () => {
     it("parses JSON to an object", () => {
-      const object = parse(stringify(abc)!);
+      const object = parseJSON(stringifyJSON(abc)!);
       assertType<IsEqual<ParsedJSON<Abc>, typeof object>>(true);
       assert.deepStrictEqual(object, abc);
     });

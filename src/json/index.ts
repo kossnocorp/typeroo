@@ -179,7 +179,7 @@ export type ParsedJSON<
     }
   : Type;
 
-export function stringify<Type>(
+export function stringifyJSON<Type>(
   object: Type
 ): Type extends undefined | Function | Symbol
   ? undefined
@@ -188,6 +188,6 @@ export function stringify<Type>(
   return JSON.stringify(object);
 }
 
-export function parse<Type>(json: StringifiedJSON<Type>): ParsedJSON<Type> {
+export function parseJSON<Type>(json: StringifiedJSON<Type>): ParsedJSON<Type> {
   return JSON.parse(json.toString());
 }
