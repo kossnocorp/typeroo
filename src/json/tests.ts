@@ -1,6 +1,7 @@
 import assert from "assert";
 import { parseJSON, ParsedJSON, StringifiedJSON, stringifyJSON } from ".";
 import { assertType, IsEqual } from "../assert";
+import { OpaqueString } from "../string";
 
 describe("JSON module", () => {
   describe("ParsedJSON", () => {
@@ -65,6 +66,22 @@ describe("JSON module", () => {
             }
           >
         >(true);
+      });
+    });
+
+    describe("opaque types", () => {
+      it("preserves opaque types", () => {
+        interface User {
+          name: string;
+        }
+        type ParsedString = ParsedJSON<OpaqueString<User>>;
+        assertType<IsEqual<ParsedString, OpaqueString<User>>>(true);
+
+        type ParsedBoolean = ParsedJSON<boolean>;
+        assertType<IsEqual<ParsedBoolean, boolean>>(true);
+
+        type ParsedNull = ParsedJSON<null>;
+        assertType<IsEqual<ParsedNull, null>>(true);
       });
     });
 
@@ -522,6 +539,20 @@ describe("JSON module", () => {
         const result = stringifyJSON(Symbol("nope"));
         assertType<IsEqual<undefined, typeof result>>(true);
         assert(result === undefined);
+      });
+    });
+
+    describe("opaque types", () => {
+      it("returns opaque type if the argument is a opaque type", () => {
+        interface User {
+          name: string;
+        }
+        const userId = "test" as OpaqueString<User>;
+        const result = stringifyJSON(userId);
+        assertType<IsEqual<StringifiedJSON<OpaqueString<User>>, typeof result>>(
+          true
+        );
+        assert(result === "test");
       });
     });
   });
