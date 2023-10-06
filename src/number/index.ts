@@ -17,3 +17,11 @@ export function parseNumber<Type extends number>(
 ): Type {
   return parseFloat(number) as Type;
 }
+
+export function negativeNumber<Type extends number>(number: Type): Type {
+  return -number as Type;
+}
+
+export function sumNumbers<Type extends number>(...numbers: Type[]): Type {
+  return numbers.reduce((a, b) => (a + b) as Type);
+}
