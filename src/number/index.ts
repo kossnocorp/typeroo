@@ -23,5 +23,5 @@ export function negativeNumber<Type extends number>(number: Type): Type {
 }
 
 export function sumNumbers<Type extends number>(...numbers: Type[]): Type {
-  return numbers.reduce((a, b) => (a + b) as Type);
+  return numbers.reduce((a, b) => (a + b) as Type, 0 as Type);
 }

@@ -29,4 +29,7 @@ export type NonNeverKeys<Type> = {
   [Key in keyof Type]: Type[Key] extends never ? never : Key;
 }[keyof Type];
 
+/**
+ * Returns the object wihtout the keys of `Type` that are `never`.
+ */
 export type OmitNever<Type> = Pick<Type, NonNeverKeys<Type>>;
