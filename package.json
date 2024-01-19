@@ -1,6 +1,6 @@
 {
   "name": "typeroo",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "🦘 Advanced TypeScript types collection",
   "scripts": {
     "build": "rm -rf lib && tsc && cp package.json lib && cp README.md lib"
