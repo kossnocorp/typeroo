@@ -1,9 +1,17 @@
 {
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
-    "outDir": "./lib",
+    "outDir": "lib",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
     "declaration": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true
-  }
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "allowJs": true
+  },
+  "exclude": []
 }

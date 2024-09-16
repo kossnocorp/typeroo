@@ -1,7 +1,12 @@
 import assert from "assert";
-import { parseJSON, ParsedJSON, StringifiedJSON, stringifyJSON } from ".";
-import { assertType, IsEqual } from "../assert";
-import { OpaqueString } from "../string";
+import { assertType, IsEqual } from "../assert/index.ts";
+import { OpaqueString } from "../string/index.ts";
+import {
+  ParsedJSON,
+  parseJSON,
+  StringifiedJSON,
+  stringifyJSON,
+} from "./index.ts";
 
 describe("JSON module", () => {
   describe("ParsedJSON", () => {

@@ -1,4 +1,4 @@
-import type { OpaqueString } from "../string";
+import type { OpaqueString } from "../string/index.ts";
 
 declare const opaqueNumberBrand: unique symbol;
 
